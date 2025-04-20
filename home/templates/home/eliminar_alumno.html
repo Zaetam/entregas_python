@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+    <h1>Eliminar {{alumno}}</h1>
+    <form action="{% url 'eliminar_alumno' alumno.id %}" method="POST">
+        {% csrf_token %} 
+
+        <p>¿Desea borrar el alumno?</p>
+        <input type="submit" value="Confirmar borrado">
+
+    </form>
+
+    
+
+{% endblock contenido %}
+    

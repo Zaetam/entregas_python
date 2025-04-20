@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <nav>
-        <a href={% url "inicio" %}>Inicio</a>
-        <a href={% url "crear_alumno" %}>Crear alumno</a>
-        <a href={% url "listado_de_alumnos" %}>Listado de alumnos</a>
-    </nav>
+{% extends "base.html" %}
+
+{% block contenido %}
     <h1>Creación alumnos</h1>
     <form action="{% url 'crear_alumno' %}" method="POST">
         {% csrf_token %} 
@@ -19,5 +9,5 @@
         <input type="submit" value="Crear">
 
     </form>
-</body>
-</html>
+{% endblock contenido %}
+    
