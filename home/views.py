@@ -5,12 +5,15 @@ from home.models import Alumno
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def inicio (request):
    #return HttpResponse ('<h1>HOLA</h1>')
     return render(request, 'home/inicio.html')
 
+@login_required
 def crear_alumno (request):
     
     if request.method =="POST":
@@ -37,13 +40,13 @@ class VistaDetalleAlumno(DetailView):
     model =Alumno
     template_name = "home/detalle_alumno.html"
 
-class VistaModificarAlumno(UpdateView):
+class VistaModificarAlumno(LoginRequiredMixin, UpdateView):
     model= Alumno
     template_name= "home/modificar_alumno.html"
     fields = ["nombre", "curso", "fecha_creacion"]
     success_url = reverse_lazy('listado_de_alumnos')
 
-class VistaEliminarAlumno(DeleteView):
+class VistaEliminarAlumno(LoginRequiredMixin, DeleteView):
     model= Alumno
     template_name= "home/eliminar_alumno.html"
     success_url= reverse_lazy('listado_de_alumnos')
