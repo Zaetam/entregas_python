@@ -5,6 +5,10 @@
     <p>Nombre: {{alumno.nombre}}</p>
     <p>Curso: {{alumno.curso}}</p>
     <p>Fecha alta: {{alumno.fecha_creacion}}</p>
+    <p>Imagen: {{alumno.imagen}}</p>
+    {% if alumno.imagen %}
+    <img src={{alumno.imagen.url}} alt="" height="40px">
+    {% endif %}
 
 {% endblock contenido %}
     

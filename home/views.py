@@ -15,12 +15,13 @@ def inicio (request):
 
 @login_required
 def crear_alumno (request):
-    
     if request.method =="POST":
-        formulario=CreacionAlumno(request.POST)
+        formulario=CreacionAlumno(request.POST, request.FILES)
         if formulario.is_valid():
             info=formulario.cleaned_data
-            alumno=Alumno(nombre=info.get('nombre'), curso=info.get('curso'), fecha_creacion=info.get('fecha_creacion'))
+            if formulario.cleaned_data.get('imagen'):
+                formulario.imagen= formulario.cleaned_data.get('imagen')
+            alumno=Alumno(nombre=info.get('nombre'), curso=info.get('curso'), fecha_creacion=info.get('fecha_creacion'), imagen=info.get('imagen'))
             alumno.save()
             return redirect ('listado_de_alumnos')
     else:
@@ -43,7 +44,7 @@ class VistaDetalleAlumno(DetailView):
 class VistaModificarAlumno(LoginRequiredMixin, UpdateView):
     model= Alumno
     template_name= "home/modificar_alumno.html"
-    fields = ["nombre", "curso", "fecha_creacion"]
+    fields = ["nombre", "curso", "fecha_creacion","imagen"]
     success_url = reverse_lazy('listado_de_alumnos')
 
 class VistaEliminarAlumno(LoginRequiredMixin, DeleteView):

@@ -2,7 +2,7 @@
 
 {% block contenido %}
     <h1>Creación alumnos</h1>
-    <form action="{% url 'crear_alumno' %}" method="POST">
+    <form action="{% url 'crear_alumno' %}" method="POST"  enctype="multipart/form-data">
         {% csrf_token %} 
 
         {{formulario}}
